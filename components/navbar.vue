@@ -41,7 +41,7 @@
           <!-- # Custom button for dropdown 2 -->
           <template #linkedinShot="{ item }">
     
-              <div class="customUiButton text-slate-100">
+              <div class="customUiButton">
                 <div class="grid">
                   <img
                     class="dropImage"
@@ -51,11 +51,10 @@
                 </div>
                 <div class="text-left flex flex-col justify-around">
                   <h3 class="text font-bold">Linkedin Headshots</h3>
-                  <p class="text-xs">
+            
                     <!-- content relative to linkedin headshot -->
-                    <p>Spice up your linked in profile with some professionalism!</p>
+                    <p class="text-xs" >Spice up your linked in profile with some professionalism!</p>
                 
-                  </p>
                 </div>
               </div>
         
@@ -68,6 +67,18 @@
         <UButton variant="ghost" icon="carbon:earth-americas-filled"></UButton>
         <UButton variant="outline">Log In</UButton>
         <UButton>Create My Headshots</UButton>
+        <ClientOnly>
+    <UButton
+      :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'"
+      color="gray"
+      variant="ghost"
+      aria-label="Theme"
+      @click="isDark = !isDark"
+    />
+    <template #fallback>
+      <div class="w-8 h-8" />
+    </template>
+  </ClientOnly>
       </div>
     </nav>
     <slot />
@@ -87,9 +98,24 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem 20rem;
+
 }
 </style>
 <script lang="ts" setup>
+const colorMode = useColorMode()
+const isDark = computed({
+  get () {
+    return colorMode.value === 'dark'
+  },
+  set () {
+    colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  }
+})
+function altMode(){
+  console.log('alt')
+
+  
+}
 const items = [
   [
     {
